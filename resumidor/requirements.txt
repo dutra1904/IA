@@ -1,0 +1,8 @@
+# Resumidor de artigos com IA
+python-dotenv>=1.0.0
+google-generativeai>=0.3.0
+# Alternativa OpenAI:
+# openai>=1.0.0
+
+# Interface web (opcional)
+streamlit>=1.28.0

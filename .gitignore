@@ -1,0 +1,23 @@
+# Ambiente
+.env
+.env.local
+venv/
+.venv/
+__pycache__/
+*.pyc
+.python-version
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node (se usar extensão Chrome com build)
+node_modules/
+dist/
+
+# Build / artefatos
+*.egg-info/
+build/
+*.log
