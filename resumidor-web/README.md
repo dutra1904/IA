@@ -6,13 +6,8 @@ Interface web para resumir textos usando Google Gemini. Pronto para deploy no Ve
 
 ```bash
 cd resumidor-web
-
 # Instalar dependências
 npm install
-
-# Configurar variável de ambiente (use a mesma chave do .env da pasta raiz)
-# Crie .env.local com: GEMINI_API_KEY=sua_chave
-
 # Rodar em desenvolvimento
 npm run dev
 ```
