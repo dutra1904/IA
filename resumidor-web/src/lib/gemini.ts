@@ -9,6 +9,9 @@ export async function getAvailableModels(apiKey: string): Promise<string[]> {
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`
   );
+  if (!res.ok) {
+    throw new Error(`Gemini models request failed (${res.status})`);
+  }
   const data = await res.json();
   const supports = (m: {
     supportedGenerationMethods?: string[];

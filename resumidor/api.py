@@ -25,18 +25,22 @@ def resumir_com_gemini(texto: str, estilo: str = "paragrafos") -> str:
         return "Erro: defina GEMINI_API_KEY no arquivo .env"
 
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel(
+        "gemini-1.5-flash",
+        system_instruction=(
+            "Você é um editor sênior. Produza resumos fiéis ao texto-fonte. "
+            "Não invente fatos, nomes, números ou conclusões. "
+            "Não escreva preâmbulo nem fechamento. Responda só com o resumo."
+        ),
+        generation_config={"temperature": 0.3, "max_output_tokens": 1024},
+    )
 
     prompts = {
-        "paragrafos": """Resuma o seguinte texto em até 3 parágrafos, mantendo os pontos principais.
-Use linguagem clara e objetiva.""",
-        "bullet": """Resuma o seguinte texto em bullet points (lista com •), com no máximo 5 tópicos.
-Seja conciso e destaque apenas o essencial.""",
-        "executivo": """Gere um resumo executivo (2-3 frases) do texto abaixo.
-Foque nos pontos mais importantes para decisão rápida.""",
+        "paragrafos": "Formato: até 3 parágrafos curtos, linguagem clara e objetiva, tom editorial.",
+        "bullet": "Formato: no máximo 5 tópicos iniciados por •. Uma ideia por linha.",
+        "executivo": "Formato: resumo executivo em 2 ou 3 frases, focado em decisão rápida.",
     }
-    prompt = prompts.get(estilo, prompts["paragrafos"])
-    prompt += "\n\nTEXTO:\n"
+    prompt = prompts.get(estilo, prompts["paragrafos"]) + "\n\nTEXTO:\n"
 
     response = model.generate_content(prompt + texto)
     return response.text
